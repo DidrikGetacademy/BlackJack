@@ -14,10 +14,6 @@ public class Dealer
     public int Score { get; set; }
 
 
-    public void DealersCard(Card card)
-    {
-        foreach (var CardDeck in card.cards) dealerCard.Add(CardDeck);
-    }
 
     public void DealOutCard(Player player, Dealer dealer, Card card)
     {
@@ -28,9 +24,8 @@ public class Dealer
             player.PlayerCard.Add(dealtCard);
             card.cards.Remove(dealtCard);
             player.Score += dealtCard.CardValue;
-            Console.WriteLine($"{player.Name} Card: {dealtCard} ");
+            Console.WriteLine($"{player.Name} Card: {dealtCard}");
         }
-
         Console.WriteLine($"Score: ({player.Score})");
         Console.WriteLine();
 

@@ -19,12 +19,7 @@ public class Card
 
     public int CardValue { get; set; }
 
-    public override string ToString()
-    {
-        return $"{CardName}";
-    }
-
-
+    
     public void addCards()
     {
         cards.Add(new Card("A", 11));
