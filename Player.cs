@@ -39,6 +39,8 @@ public class Player
                 Console.WriteLine($"{Name} Hit! Card: {dealtCard.CardName}");
                 Console.WriteLine($"Score: {Score}");
             }
+            Console.WriteLine($"{Name} Hit! Card: {dealtCard.CardName}");
+            Console.WriteLine($"Score: {Score}");
         }
     }
 

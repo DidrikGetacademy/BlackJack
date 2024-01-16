@@ -16,6 +16,8 @@ public class Dealer
     public int Score { get; set; }
 
 
+    public bool AlreadyHitAce = true;
+
 
     public void DealOutCard(Player player, Dealer dealer, Card card)
     {
@@ -62,9 +64,6 @@ public class Dealer
             Console.WriteLine($"{dealer.Name} Card: ?");
         }
 
-        Console.WriteLine($"Score: ({dealer.Score})");
-
-
         while (!Winner(player, dealer))
         {
             Console.WriteLine();
@@ -102,13 +101,15 @@ public class Dealer
     {
         if (dealer.Score < 17 && player.Score != 21 && player.Score < 21 && userinput == "2")
         {
+            var Ace = player.PlayerCard.Any(x => x.CardName == "A");
             var dealtCard = card.cards.First();
             dealer.dealerCard.Add(dealtCard);
             card.cards.Remove(dealtCard);
             dealer.Score += dealtCard.CardValue;
             Console.WriteLine();
-            Console.WriteLine($"{dealer.Name} Hit! Card: {dealtCard.CardName}");
+            Console.WriteLine($"{Name} Hit! Card: {dealtCard.CardName}");
             Console.WriteLine($"Score: {dealer.Score}");
+            
         }
     }
 
