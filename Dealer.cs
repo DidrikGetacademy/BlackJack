@@ -1,4 +1,6 @@
-﻿namespace BlackJack;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BlackJack;
 
 public class Dealer
 {
@@ -17,6 +19,7 @@ public class Dealer
 
     public void DealOutCard(Player player, Dealer dealer, Card card)
     {
+      
         card.addCards();
         while (player.PlayerCard.Count < 2)
         {
@@ -24,10 +27,29 @@ public class Dealer
             player.PlayerCard.Add(dealtCard);
             card.cards.Remove(dealtCard);
             player.Score += dealtCard.CardValue;
-            Console.WriteLine($"{player.Name} Card: {dealtCard}");
+            Console.WriteLine($"{player.Name} Card: {dealtCard.CardName}");
         }
-        Console.WriteLine($"Score: ({player.Score})");
-        Console.WriteLine();
+
+        var AceCard = new Card("A", 1);
+        var Ace = player.PlayerCard.Any(x => x.CardName == "A");
+        if (Ace && !Winner(player,dealer) || Score > 21)
+        {
+            AceCard.CardValue = AceCard.CardValue + player.Score - 11;
+            Console.WriteLine($"Score: ({player.Score} or {AceCard.CardValue})");
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine($"Score: ({player.Score})");
+            Console.WriteLine();
+        }
+       
+
+
+
+
+
+
 
 
         while (dealer.dealerCard.Count < 1)
@@ -36,7 +58,7 @@ public class Dealer
             dealer.dealerCard.Add(dealtCard);
             card.cards.Remove(dealtCard);
             dealer.Score += dealtCard.CardValue;
-            Console.WriteLine($"{dealer.Name} Card: {dealtCard}");
+            Console.WriteLine($"{dealer.Name} Card: {dealtCard.CardName}");
             Console.WriteLine($"{dealer.Name} Card: ?");
         }
 
@@ -85,14 +107,16 @@ public class Dealer
             card.cards.Remove(dealtCard);
             dealer.Score += dealtCard.CardValue;
             Console.WriteLine();
-            Console.WriteLine($"{dealer.Name} Hit! Card: {dealtCard}");
+            Console.WriteLine($"{dealer.Name} Hit! Card: {dealtCard.CardName}");
             Console.WriteLine($"Score: {dealer.Score}");
         }
     }
 
 
+
     public bool Winner(Player player, Dealer dealer)
     {
+    
         return player.Score == 21 || player.Score > 21 || dealer.Score == 21 || dealer.Score >= 17 ||
                (dealer.Score > 17 && dealer.Score < player.Score);
     }
